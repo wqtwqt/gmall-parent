@@ -64,7 +64,7 @@ public interface ManageService {
     BaseCategoryView getBaseCategoryViewByCategory3Id(Long category3Id);
 
     /**
-     * 获取主页分类
+     * 获取首页商品分类
      * @return
      */
     List<JSONObject> getBaseCategoryList();

@@ -67,6 +67,7 @@ public class ProductApiController {
         return skuValueIdsMap;
     }
 
+    //获取首页商品分类
     @GetMapping("getBaseCategoryList")
     public Result getBaseCategoryList(){
         List<JSONObject> list = manageService.getBaseCategoryList();
