@@ -24,3 +24,7 @@ spring:
           uri: lb://web-all
           predicates:
             - Host=item.gmall.com
+        - id: web-index
+          uri: lb://web-all
+          predicates:
+            - Host=www.gmall.com

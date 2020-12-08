@@ -1,5 +1,6 @@
 package com.atguigu.gmall.product.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.atguigu.gmall.common.result.Result;
 import com.atguigu.gmall.model.product.BaseCategoryView;
 import com.atguigu.gmall.model.product.SkuInfo;
@@ -64,5 +65,11 @@ public class ProductApiController {
         Map skuValueIdsMap = skuManageService.getSkuValueIdsMap(spuId);
 
         return skuValueIdsMap;
+    }
+
+    @GetMapping("getBaseCategoryList")
+    public Result getBaseCategoryList(){
+        List<JSONObject> list = manageService.getBaseCategoryList();
+        return Result.ok(list);
     }
 }

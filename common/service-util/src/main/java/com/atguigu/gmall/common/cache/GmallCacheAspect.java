@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.atguigu.gmall.common.constant.RedisConst;
 import lombok.SneakyThrows;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.Signature;
+
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -50,15 +50,19 @@ public class GmallCacheAspect {
                             Object object1 = new Object();
                             redisTemplate.opsForValue().set(key,JSON.toJSONString(object1),RedisConst.SKUKEY_TEMPORARY_TIMEOUT,TimeUnit.SECONDS);
                             return object1;
-                        }else {
+                        }
                             redisTemplate.opsForValue().set(key,JSON.toJSONString(object),RedisConst.SKUKEY_TIMEOUT,TimeUnit.SECONDS);
                             return object;
-                        }
+
                     } finally {
                         lock.unlock();
                     }
                 }else {
-                    Thread.sleep(1000);
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     return cacheAroundAdvice(joinPoint);
                 }
             }else {
