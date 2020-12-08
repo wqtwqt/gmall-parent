@@ -1,5 +1,6 @@
 package com.atguigu.gmall.product.service.impl;
 
+import com.atguigu.gmall.common.cache.GmallCache;
 import com.atguigu.gmall.model.product.*;
 import com.atguigu.gmall.product.mapper.*;
 import com.atguigu.gmall.product.service.ManageService;
@@ -103,7 +104,12 @@ public class ManageServiceImpl implements ManageService {
     }
 
     @Override
+    @GmallCache(prefix = "baseCategoryViewByCategory3Id")
     public BaseCategoryView getBaseCategoryViewByCategory3Id(Long category3Id) {
+        return getBaseCategoryViewDB(category3Id);
+    }
+
+    private BaseCategoryView getBaseCategoryViewDB(Long category3Id) {
         BaseCategoryView baseCategoryView = baseCategoryViewMapper.selectById(category3Id);
 
         return baseCategoryView;

@@ -1,5 +1,6 @@
 package com.atguigu.gmall.product.service.impl;
 
+import com.atguigu.gmall.common.cache.GmallCache;
 import com.atguigu.gmall.common.constant.RedisConst;
 import com.atguigu.gmall.model.product.*;
 import com.atguigu.gmall.product.mapper.*;
@@ -115,8 +116,9 @@ public class SkuManageServiceImpl implements SkuManageService {
     }
 
     @Override
+    @GmallCache(prefix = "skuInfo")
     public SkuInfo getSkuInfo(Long skuId) {
-        return getSkuInfoRedisson(skuId);
+        return getSkuInfoDB(skuId);
     }
 
     private SkuInfo getSkuInfoRedisson(Long skuId) {
@@ -146,6 +148,7 @@ public class SkuManageServiceImpl implements SkuManageService {
                     }
 
                 }else {
+                    Thread.sleep(1000);
                     return getSkuInfo(skuId);
                 }
             }else {
@@ -168,18 +171,28 @@ public class SkuManageServiceImpl implements SkuManageService {
     }
 
     @Override
+    @GmallCache(prefix = "skuPrice")
     public BigDecimal getSkuPrice(Long skuId) {
 
+        return getBigDecimalDB(skuId);
+
+    }
+
+    private BigDecimal getBigDecimalDB(Long skuId) {
         SkuInfo skuInfo = skuInfoMapper.selectById(skuId);
         if(null != skuInfo) {
             return skuInfo.getPrice();
         }
         return new BigDecimal("0");
-
     }
 
     @Override
+    @GmallCache(prefix = "skuValueIdsMap")
     public Map getSkuValueIdsMap(Long spuId) {
+        return getMapDB(spuId);
+    }
+
+    private Map getMapDB(Long spuId) {
         Map<Object,Object> map = new HashMap<>();
         List<Map> mapList = skuSaleAttrValueMapper.selectSaleAttrValuesBySpu(spuId);
         if (!CollectionUtils.isEmpty(mapList)){
@@ -187,7 +200,6 @@ public class SkuManageServiceImpl implements SkuManageService {
                 map.put(skuMap.get("value_ids"),skuMap.get("sku_id"));
             }
         }
-        System.out.println(map);
         return map;
     }
 
