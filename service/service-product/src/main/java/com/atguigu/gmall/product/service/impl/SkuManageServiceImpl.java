@@ -163,10 +163,12 @@ public class SkuManageServiceImpl implements SkuManageService {
 
     private SkuInfo getSkuInfoDB(Long skuId) {
         SkuInfo skuInfo = skuInfoMapper.selectById(skuId);
-        QueryWrapper<SkuImage> skuImageQueryWrapper = new QueryWrapper<>();
-        skuImageQueryWrapper.eq("sku_id",skuId);
-        List<SkuImage> skuImageList = skuImageMapper.selectList(skuImageQueryWrapper);
-        skuInfo.setSkuImageList(skuImageList);
+        if(skuInfo!= null) {
+            QueryWrapper<SkuImage> skuImageQueryWrapper = new QueryWrapper<>();
+            skuImageQueryWrapper.eq("sku_id", skuId);
+            List<SkuImage> skuImageList = skuImageMapper.selectList(skuImageQueryWrapper);
+            skuInfo.setSkuImageList(skuImageList);
+        }
         return skuInfo;
     }
 

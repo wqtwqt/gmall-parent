@@ -15,6 +15,7 @@ public class WebAllController {
     @Autowired
     private ItemFeignClient itemFeignClient;
 
+    //skuInfo页面
     @RequestMapping("{skuId}.html")
     public String getItem(@PathVariable Long skuId, Model model){
         Result<Map> item = itemFeignClient.getItem(skuId);

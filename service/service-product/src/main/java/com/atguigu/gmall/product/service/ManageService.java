@@ -68,4 +68,11 @@ public interface ManageService {
      * @return
      */
     List<JSONObject> getBaseCategoryList();
+
+    /**
+     * 根据skuId获取平台属性和平台属性值
+     * @param skuId
+     * @return
+     */
+    List<BaseAttrInfo> getBaseAttrList(Long skuId);
 }

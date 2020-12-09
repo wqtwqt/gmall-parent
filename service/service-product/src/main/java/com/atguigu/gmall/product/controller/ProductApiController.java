@@ -2,9 +2,8 @@ package com.atguigu.gmall.product.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.atguigu.gmall.common.result.Result;
-import com.atguigu.gmall.model.product.BaseCategoryView;
-import com.atguigu.gmall.model.product.SkuInfo;
-import com.atguigu.gmall.model.product.SpuSaleAttr;
+import com.atguigu.gmall.model.product.*;
+import com.atguigu.gmall.product.service.BaseTrademarkService;
 import com.atguigu.gmall.product.service.ManageService;
 import com.atguigu.gmall.product.service.SkuManageService;
 import com.atguigu.gmall.product.service.SpuManageService;
@@ -30,6 +29,9 @@ public class ProductApiController {
 
     @Autowired
     private SpuManageService spuManageService;
+
+    @Autowired
+    private BaseTrademarkService baseTrademarkService;
 
     //根据skuId回显sku基本信息
     @GetMapping("inner/getSkuInfo/{skuId}")
@@ -72,5 +74,19 @@ public class ProductApiController {
     public Result getBaseCategoryList(){
         List<JSONObject> list = manageService.getBaseCategoryList();
         return Result.ok(list);
+    }
+
+    //根据品牌Id获取品牌信息
+    @GetMapping("inner/getTrademark/{tmId}")
+    public BaseTrademark getTrademark(@PathVariable Long tmId){
+        BaseTrademark baseTrademarkById = baseTrademarkService.getBaseTrademarkById(tmId);
+        return baseTrademarkById;
+    }
+
+    //根据skuId获取平台属性和平台属性值
+    @GetMapping("inner/getAttrList/{skuId}")
+    public List<BaseAttrInfo> getAttrList(@PathVariable Long skuId){
+        List<BaseAttrInfo> baseAttrList = manageService.getBaseAttrList(skuId);
+        return baseAttrList;
     }
 }

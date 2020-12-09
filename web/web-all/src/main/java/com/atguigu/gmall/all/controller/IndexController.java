@@ -13,6 +13,7 @@ public class IndexController {
     @Autowired
     private ProductFeignClient productFeignClient;
 
+    //分类级别
     @RequestMapping({"/","index.html"})
     public String index(Model model){
         Result baseCategoryList = productFeignClient.getBaseCategoryList();

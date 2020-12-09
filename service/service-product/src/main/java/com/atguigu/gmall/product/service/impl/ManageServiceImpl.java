@@ -6,8 +6,7 @@ import com.atguigu.gmall.model.product.*;
 import com.atguigu.gmall.product.mapper.*;
 import com.atguigu.gmall.product.service.ManageService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -176,6 +175,12 @@ public class ManageServiceImpl implements ManageService {
         }
 
         return list;
+    }
+
+    @Override
+    public List<BaseAttrInfo> getBaseAttrList(Long skuId) {
+       List<BaseAttrInfo> list = baseAttrInfoMapper.selectBaseAttrListById(skuId);
+       return list;
     }
 
     private BaseCategoryView getBaseCategoryViewDB(Long category3Id) {

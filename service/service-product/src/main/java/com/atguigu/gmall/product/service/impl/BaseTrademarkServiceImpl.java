@@ -22,4 +22,10 @@ public class BaseTrademarkServiceImpl extends ServiceImpl<BaseTrademarkMapper,Ba
         IPage<BaseTrademark> baseTrademarkIPage = baseTrademarkMapper.selectPage(baseTrademarkPage, baseTrademarkQueryWrapper);
         return baseTrademarkIPage;
     }
+
+    @Override
+    public BaseTrademark getBaseTrademarkById(Long tmId) {
+        BaseTrademark baseTrademark = baseTrademarkMapper.selectById(tmId);
+        return baseTrademark;
+    }
 }
